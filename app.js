@@ -21,8 +21,15 @@ const articleSchema = {
 
 const Article = mongoose.model('Article', articleSchema);
 
-app.get('/', (req, res) => {
-  res.send('Hello HUmans');
+// will get ALL of the articles
+app.get('/articles', (req, res) => {
+  Article.find((err, foundArticles) => {
+    if (!err) {
+      res.send(foundArticles);
+    } else {
+      res.send(err);
+    }
+  });
 });
 
 app.listen(port, () => {
