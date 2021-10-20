@@ -21,11 +21,27 @@ const articleSchema = {
 
 const Article = mongoose.model('Article', articleSchema);
 
-// will get ALL of the articles
+// will get ALL of the articles from the DB
 app.get('/articles', (req, res) => {
   Article.find((err, foundArticles) => {
     if (!err) {
       res.send(foundArticles);
+    } else {
+      res.send(err);
+    }
+  });
+});
+
+// will POST an article to the DB
+app.post('/articles', (req, res) => {
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content,
+  });
+
+  newArticle.save((err) => {
+    if (!err) {
+      res.send('Successfully saved the article!');
     } else {
       res.send(err);
     }
