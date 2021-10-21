@@ -48,6 +48,17 @@ app.post('/articles', (req, res) => {
   });
 });
 
+// will delete all article from the DB
+app.delete('/articles', (req, res) => {
+  Article.deleteMany((err) => {
+    if (!err) {
+      res.send('Successfully deleted all articles');
+    } else {
+      res.send(err);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`I am listening on port ${port}`);
 });
